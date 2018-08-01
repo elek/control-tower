@@ -1,0 +1,71 @@
+<template>
+  <div class="post">
+  <div class="loading" v-if="loading">
+    Loading...
+  </div>
+
+  <div v-if="error" class="error">
+    {{ error }}
+  </div>
+
+  <div v-if="post" class="content">
+    <h2>Installed components</h2>
+    <div class="card" style="width: 18rem; margin: 1em;" v-for="item in post.body.items">
+      <div class="card-body">
+        <h5 class="card-title">{{item.spec.type}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{item.metadata.name}}</h6>
+          <p class="card-text">Namespace: {{item.metadata.namespace}}</p>
+          <router-link :to="{path:'/component/' + item.metadata.name }" class="card-link">Details</router-link>
+          <a href="#" class="card-link" @click="remove(item)">Delete</a>
+      </div>
+    </div>
+    <router-link to="/new/component" class="btn btn-warning">Install new component</router-link>
+  </div>
+</div>
+</template>
+
+
+<script>
+var namespace = "ozoneconsole"
+export default {
+  data () {
+     return {
+       loading: false,
+       post: null,
+       error: null
+     }
+   },
+   created () {
+     // fetch the data when the view is created and the data is
+     // already being observed
+     this.fetchData()
+   },
+   watch: {
+     // call again the method if the route changes
+     '$route': 'fetchData'
+   },
+   methods: {
+   remove(item) {
+     var url = "/apis/flokkr.github.io/v1alpha1/namespaces/"+item.metadata.namespace+"/components/" + item.metadata.name
+     console.log(url)
+     this.$http.delete(url).then(ok => {
+        this.fetchData()
+     },error=>{
+        this.error = error
+     })
+   },
+   fetchData () {
+     this.error = this.post = null
+     this.loading = true
+     // replace `getPost` with your data fetching util / API wrapper
+     this.$http.get("/apis/flokkr.github.io/v1alpha1/namespaces/"+namespace+"/components").then( post => {
+       this.loading = false
+       this.post = post
+     }, error => {
+       this.loading = false
+       this.error = error
+     })
+   }
+ }
+}
+</script>
