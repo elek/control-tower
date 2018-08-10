@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: control-tower
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: control-tower
+  template:
+    metadata:
+      labels:
+        name: control-tower
+    spec:
+      serviceAccountName: control-tower-api
+      containers:
+        - name: control-tower
+          image: flokkr/control-tower
+          imagePullPolicy: Always
+        - name: kube-proxy
+          image: lachlanevenson/k8s-kubectl
+          args:
+            - proxy

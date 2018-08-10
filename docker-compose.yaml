@@ -1,0 +1,11 @@
+version: "2"
+services:
+   web:
+      build: .
+      ports:
+         - 9870:9870
+   proxy:
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl","proxy"]
+      volumes:
+         - ~/.kubec:~/.kube

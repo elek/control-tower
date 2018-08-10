@@ -1,0 +1,5 @@
+http://localhost:2015 
+root /web
+proxy /api localhost:8001 {
+   websocket
+}
