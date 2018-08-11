@@ -1,0 +1,7 @@
+http://localhost:2016 
+proxy / localhost:8080 {
+   websocket
+}
+proxy /api localhost:8001 {
+   websocket
+}
