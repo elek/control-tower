@@ -4,8 +4,11 @@ import App from './App.vue'
 import Topology from './components/Topology.vue'
 import Logging from './components/Logging.vue'
 import History from './components/History.vue'
-import ComponentNew from './components/ComponentNew.vue'
+import ComponentFormCustom from './components/ComponentFormCustom.vue'
+import ComponentForm from './components/ComponentForm.vue'
+import ComponentFormFreon from './components/ComponentFormFreon.vue'
 import ComponentDetail from './components/ComponentDetail.vue'
+import ComponentSelection from './components/ComponentSelection.vue'
 import ConfigEdit from './components/ConfigEdit.vue'
 import Monitoring from './components/Monitoring.vue'
 import PodLogging from './components/PodLogging.vue'
@@ -30,7 +33,10 @@ const routes = [
     { path: '/topology', component: Topology },
     { path: '/logging', component: Logging },
     { path: '/history', component: History },
-    { path: '/new/component', component: ComponentNew },
+    { path: '/new/customcomponent', component: ComponentFormCustom },
+    { path: '/new/component/select', component: ComponentSelection },
+    { path: '/new/component/form/freon', component: ComponentFormFreon },
+    { path: '/new/component/form/:id', component: ComponentForm },
     { path: '/component/:name', component: ComponentDetail },
     { path: '/config/:name', component: ConfigEdit },
     { path: '/monitoring', component: Monitoring },

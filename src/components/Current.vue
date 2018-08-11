@@ -19,7 +19,7 @@
           <a href="#" class="card-link" @click="remove(item)">Delete</a>
       </div>
     </div>
-    <router-link to="/new/component" class="btn btn-warning">Install new component</router-link>
+    <router-link to="/new/component/select" class="btn btn-warning">Install new component</router-link>
   </div>
 </div>
 </template>
