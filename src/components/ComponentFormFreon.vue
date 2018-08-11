@@ -61,7 +61,7 @@
     "name": "example"
   },
   "spec": {
-    "type": "ozone",
+    "type": "freon",
     "values": {
       "image": {
         "repository": "flokkr/ozone",
@@ -71,10 +71,6 @@
   }
 }`),
             }
-        },
-        created() {
-            this.resource.spec.type = this.$route.params.id;
-            this.resource.spec.values.image.repository = "flokkr/" + this.$route.params.id
         },
         methods: {
             submit() {
