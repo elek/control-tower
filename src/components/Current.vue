@@ -26,7 +26,6 @@
 
 
 <script>
-var namespace = "ozoneconsole"
 export default {
   data () {
      return {
@@ -47,7 +46,6 @@ export default {
    methods: {
    remove(item) {
      var url = "/apis/flokkr.github.io/v1alpha1/namespaces/"+item.metadata.namespace+"/components/" + item.metadata.name
-     console.log(url)
      this.$http.delete(url).then(ok => {
         this.fetchData()
      },error=>{
@@ -58,7 +56,7 @@ export default {
      this.error = this.post = null
      this.loading = true
      // replace `getPost` with your data fetching util / API wrapper
-     this.$http.get("/apis/flokkr.github.io/v1alpha1/namespaces/"+namespace+"/components").then( post => {
+       this.$http.get("/apis/flokkr.github.io/v1alpha1/namespaces/" + this.$store.state.namespace + "/components").then(post => {
        this.loading = false
        this.post = post
      }, error => {

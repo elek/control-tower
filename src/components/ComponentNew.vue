@@ -7,7 +7,6 @@
 </template>
 
 <script>
-var namespace = 'ozoneweekly'
 export default {
   data () {
      return {
@@ -43,7 +42,7 @@ export default {
    submit() {
       var obj = JSON.parse(this.resource)
       // eslint-disable-next-line
-      this.$http.post("/apis/flokkr.github.io/v1alpha1/namespaces/"+namespace+"/components", obj).then(post => {
+       this.$http.post("/apis/flokkr.github.io/v1alpha1/namespaces/" + this.$store.state.namespace + "/components", obj).then(post => {
         this.message = "Message saved successfully."
       }, error => {
         this.message = error.body.status +" " + error.body.message

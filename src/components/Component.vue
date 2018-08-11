@@ -33,7 +33,7 @@ export default {
    },
    methods: {
    fetchData () {
-     this.$http.get("/api/v1/namespaces/ozoneconsole/configmaps").then( post => {
+       this.$http.get("/api/v1/namespaces/" + this.$store.state + "/configmaps").then(post => {
        this.post = post
      }, error => {
        this.loading = false

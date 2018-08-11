@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <router-link to="/" class="nav-link">Ozonecluster</router-link>
+            <router-link to="/" class="nav-link">{{namespace}}</router-link>
           </li>
           <li class="nav-item">
              <router-link to="/topology" class="nav-link">Topology</router-link>
@@ -37,17 +37,18 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 //import RouterLink from 'vue-router'
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
-    //, RouterLink
-  }
+  components: {},
+    computed: {
+        namespace() {
+            return this.$store.state.namespace
+        }
+    }
 }
 </script>
 
