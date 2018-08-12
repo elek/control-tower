@@ -5,3 +5,7 @@ proxy / localhost:8080 {
 proxy /api localhost:8001 {
    websocket
 }
+
+proxy /docker https://registry.hub.docker.com/ {
+   without /docker
+}

@@ -1,5 +1,6 @@
 <template>
-    <div class="col-md-12">
+    <div class="row">
+        <div class="col-md-8">
 
         {{message}}
         <h1>Installing {{$route.params.id}}</h1>
@@ -14,10 +15,16 @@
             </div>
             <div class="form-group">
                 <label for="values_image_repository">Docker image</label>
-                <input type="text"
-                       v-model="resource.spec.values.image.repository"
-                       id="values_image_repository" class="form-control"
-                       placeholder="Docker image">
+                <div class="input-group">
+                    <input type="text"
+                           v-model="resource.spec.values.image.repository"
+                           v-on:blur="reloadTags()"
+                           id="values_image_repository" class="form-control"
+                           placeholder="Docker image"/>
+                    <button type="button" @click="reloadTags()"
+                            class="btn btn-warning">Reload tags
+                    </button>
+                </div>
                 <small class="form-text text-muted">Name of the
                     docker images to use.
                 </small>
@@ -28,14 +35,23 @@
                        v-model="resource.spec.values.image.tag"
                        id="values_image_tag" class="form-control">
                 <small class="form-text text-muted">Name of the
-                    Tag of the docker image to use.
+                    Tag of the docker image to use. Choose a tag from the left
+                    side.
                 </small>
             </div>
             <button type="submit" class="btn btn-primary" v-on:click="submit()">
                 Submit
             </button>
         </form>
-
+    </div>
+        <div class="col-md-4">
+            <h2>flokkr/ozone versions</h2>
+            <p v-for="tag in tags">
+                <button class="btn" v-on:click="setLabel(tag.name)">
+                    {{tag.name}}
+                </button>
+            </p>
+        </div>
     </div>
 </template>
 
@@ -60,13 +76,30 @@
     }
   }
 }`),
+                tags: [],
+                loadedRepository: "",
             }
         },
         created() {
             this.resource.spec.type = this.$route.params.id;
             this.resource.spec.values.image.repository = "flokkr/" + this.$route.params.id
+            this.reloadTags()
         },
         methods: {
+            reloadTags() {
+                if (this.loadedRepository != this.resource.spec.values.image.repository) {
+                    this.$http.get("/docker/v2/repositories/" + this.resource.spec.values.image.repository + "/tags/").then(result => {
+                        this.tags = result.body.results;
+                    }, error => {
+                        this.message = error.body.status + " " + error.body.message
+                    });
+                    this.loadedRepository = this.resource.spec.values.image.repository
+                }
+
+            },
+            setLabel(tag) {
+                this.resource.spec.values.image.tag = tag;
+            },
             submit() {
                 // eslint-disable-next-line
                 this.$http.post("/apis/flokkr.github.io/v1alpha1/namespaces/" + this.$store.state.namespace + "/components", this.resource).then(post => {

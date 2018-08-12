@@ -1,5 +1,9 @@
-http://localhost:2015 
+http://0.0.0.0:2015 
 root /web
 proxy /api localhost:8001 {
    websocket
 }
+proxy /docker https://registry.hub.docker.com/ {
+   without /docker
+}
+
