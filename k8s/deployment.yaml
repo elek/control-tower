@@ -17,6 +17,9 @@ spec:
         - name: control-tower
           image: flokkr/control-tower
           imagePullPolicy: Always
+          ports:
+             - containerPort: 2015
+               name: web
         - name: kube-proxy
           image: lachlanevenson/k8s-kubectl
           args:
