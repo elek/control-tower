@@ -39,6 +39,18 @@
                     side.
                 </small>
             </div>
+            <h2>Datanode</h2>
+            <div class="form-group">
+                <label for="values_services_datanode_replicas">Number of
+                    datanodes</label>
+                <input type="number"
+                       v-model="resource.spec.values.services.datanode.replicas"
+                       id="values_services_datanode_replicas"
+                       class="form-control">
+                <small class="form-text text-muted">Number of the datanode
+                    instances.
+                </small>
+            </div>
             <button type="submit" class="btn btn-primary" v-on:click="submit()">
                 Submit
             </button>
@@ -60,6 +72,7 @@
         data() {
             return {
                 message: '',
+                editMode: false,
                 resource: JSON.parse(`{
   "apiVersion": "flokkr.github.io/v1alpha1",
   "kind": "Component",
@@ -72,6 +85,11 @@
       "image": {
         "repository": "flokkr/ozone",
         "tag": "latest"
+      },
+      "services":{
+         "datanode":{
+           "replicas":3
+         }
       }
     }
   }
@@ -81,8 +99,17 @@
             }
         },
         created() {
-            this.resource.spec.type = this.$route.params.id;
-            this.resource.spec.values.image.repository = "flokkr/" + this.$route.params.id
+            if (this.$route.params.id) {
+                this.editMode = true;
+                this.$http.get("/apis/flokkr.github.io/v1alpha1/namespaces/" + this.$store.state.namespace + "/components/" + this.$route.params.id).then(result => {
+                    this.resource = result.body;
+                }, error => {
+                    this.message = error.body.status + " " + error.body.message
+                });
+            } else {
+                this.resource.spec.type = this.$route.params.type;
+                this.resource.spec.values.image.repository = "flokkr/" + this.$route.params.type;
+            }
             this.reloadTags()
         },
         methods: {
@@ -101,12 +128,21 @@
                 this.resource.spec.values.image.tag = tag;
             },
             submit() {
-                // eslint-disable-next-line
-                this.$http.post("/apis/flokkr.github.io/v1alpha1/namespaces/" + this.$store.state.namespace + "/components", this.resource).then(post => {
-                    this.message = "Message saved successfully."
-                }, error => {
-                    this.message = error.body.status + " " + error.body.message
-                })
+                if (this.editMode) {
+                    // eslint-disable-next-line
+                    this.$http.put("/apis/flokkr.github.io/v1alpha1/namespaces/" + this.$store.state.namespace + "/components/" + this.$route.params.id, this.resource).then(post => {
+                        this.message = "Message saved successfully."
+                    }, error => {
+                        this.message = error.body.status + " " + error.body.message
+                    })
+                } else {
+                    // eslint-disable-next-line
+                    this.$http.post("/apis/flokkr.github.io/v1alpha1/namespaces/" + this.$store.state.namespace + "/components", this.resource).then(post => {
+                        this.message = "Message saved successfully."
+                    }, error => {
+                        this.message = error.body.status + " " + error.body.message
+                    })
+                }
             },
             fetchData() {
                 this.error = this.post = null;

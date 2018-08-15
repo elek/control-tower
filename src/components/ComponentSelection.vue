@@ -13,7 +13,7 @@
 
                 <button class="btn" v-if="component.disabled">Not yet available</button>
                 <router-link v-else class="card-link btn btn-warning"
-                             :to="{path:'/new/component/form/' + component.id}">
+                             :to="{path:'/component/' + component.id +'/new'}">
                     Install
                 </router-link>
             </div>

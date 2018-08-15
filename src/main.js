@@ -28,33 +28,33 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 
 import Current from './components/Current.vue'
+
 const routes = [
-    { path: '/', component: Current },
-    { path: '/topology', component: Topology },
-    { path: '/logging', component: Logging },
-    { path: '/history', component: History },
-    { path: '/new/customcomponent', component: ComponentFormCustom },
-    { path: '/new/component/select', component: ComponentSelection },
-    { path: '/new/component/form/freon', component: ComponentFormFreon },
-    { path: '/new/component/form/:id', component: ComponentForm },
-    { path: '/component/:name', component: ComponentDetail },
-    { path: '/config/:name', component: ConfigEdit },
-    { path: '/monitoring', component: Monitoring },
-    { path: '/pod/:name/logging', component: PodLogging },
-    { path: '/pod/:name/status', component: PodStatus },
-    { path: '/pod/:name/console', component: PodUIConsole },
-    { path: '/ui', component: KubernetesUI }
+    {path: '/', component: Current},
+    {path: '/topology', component: Topology},
+    {path: '/logging', component: Logging},
+    {path: '/history', component: History},
+    {path: '/new/customcomponent', component: ComponentFormCustom},
+    {path: '/new/component/select', component: ComponentSelection},
+    {path: '/component/freon/new', component: ComponentFormFreon},
+    {path: '/component/:type/new', component: ComponentForm},
+    {path: '/component/:type/:id/edit', component: ComponentForm},
+    {path: '/component/:name', component: ComponentDetail},
+    {path: '/config/:name', component: ConfigEdit},
+    {path: '/monitoring', component: Monitoring},
+    {path: '/pod/:name/logging', component: PodLogging},
+    {path: '/pod/:name/status', component: PodStatus},
+    {path: '/pod/:name/console', component: PodUIConsole},
+    {path: '/ui', component: KubernetesUI}
 ];
 
 const router = new VueRouter({
-  routes // short for `routes: routes`
+    routes // short for `routes: routes`
 });
 
 
-
-
 new Vue({
-  render: h => h(App),
+    render: h => h(App),
     store: store,
     router: router,
 }).$mount('#app');

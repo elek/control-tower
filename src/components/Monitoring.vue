@@ -1,11 +1,13 @@
 <template>
-  <iframe class="embedded" src="http://172.26.32.230:30177/d/siVK56Omk/ozoneweekly?orgId=1&from=now-1h&to=now"></iframe>
+    <iframe class="embedded" :src="url"></iframe>
 </template>
 
-
 <script>
-export default {
-   
-   
-}
+    export default {
+        data() {
+            return {
+                url: "/api/v1/namespaces/" + this.$store.state.namespace + "/services/grafana-grafana:web/proxy/",
+            }
+        }
+    }
 </script>

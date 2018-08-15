@@ -16,6 +16,7 @@
         <h6 class="card-subtitle mb-2 text-muted">{{item.metadata.name}}</h6>
           <p class="card-text">Namespace: {{item.metadata.namespace}}</p>
           <router-link :to="{path:'/component/' + item.metadata.name }" class="card-link">Details</router-link>
+          <router-link :to="{path:'/component/' + item.spec.type + '/' + item.metadata.name +'/edit'}" class="card-link">Edit</router-link>
           <a href="#" class="card-link" @click="remove(item)">Delete</a>
       </div>
     </div>
