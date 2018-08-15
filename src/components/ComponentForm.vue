@@ -73,7 +73,21 @@
             return {
                 message: '',
                 editMode: false,
-                resource: JSON.parse(`{
+                resource: {},
+                tags: [],
+                loadedRepository: "",
+            }
+        },
+        created() {
+            if (this.$route.params.id) {
+                this.editMode = true;
+                this.$http.get("/apis/flokkr.github.io/v1alpha1/namespaces/" + this.$store.state.namespace + "/components/" + this.$route.params.id).then(result => {
+                    this.resource = result.body;
+                }, error => {
+                    this.message = error.body.status + " " + error.body.message
+                });
+            } else {
+                this.resource = JSON.parse(`{
   "apiVersion": "flokkr.github.io/v1alpha1",
   "kind": "Component",
   "metadata": {
@@ -93,21 +107,8 @@
       }
     }
   }
-}`),
-                tags: [],
-                loadedRepository: "",
-            }
-        },
-        created() {
-            if (this.$route.params.id) {
-                this.editMode = true;
-                this.$http.get("/apis/flokkr.github.io/v1alpha1/namespaces/" + this.$store.state.namespace + "/components/" + this.$route.params.id).then(result => {
-                    this.resource = result.body;
-                }, error => {
-                    this.message = error.body.status + " " + error.body.message
-                });
-            } else {
-                this.resource.spec.type = this.$route.params.type;
+}`);
+                    this.resource.spec.type = this.$route.params.type;
                 this.resource.spec.values.image.repository = "flokkr/" + this.$route.params.type;
             }
             this.reloadTags()
