@@ -15,6 +15,7 @@ import PodLogging from './components/PodLogging.vue'
 import PodStatus from './components/PodStatus.vue'
 import PodUIConsole from './components/PodUIConsole.vue'
 import KubernetesUI from './components/KubernetesUI.vue'
+import Prometheus from './components/Prometheus.vue'
 import store from './store.js'
 
 import BootstrapVue from 'bootstrap-vue'
@@ -45,7 +46,8 @@ const routes = [
     {path: '/pod/:name/logging', component: PodLogging},
     {path: '/pod/:name/status', component: PodStatus},
     {path: '/pod/:name/console', component: PodUIConsole},
-    {path: '/ui', component: KubernetesUI}
+    {path: '/ui', component: KubernetesUI},
+    {path: '/prometheus', component: Prometheus}
 ];
 
 const router = new VueRouter({
