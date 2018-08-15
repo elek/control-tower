@@ -51,6 +51,26 @@
                     instances.
                 </small>
             </div>
+            <h2>Configuration</h2>
+
+
+            <config-editor
+                    v-model="resource.spec.values.config.coreSite"
+                    label="core-site.xml"></config-editor>
+
+            <config-editor
+                    v-model="resource.spec.values.config.hdfsSite"
+                    label="hdfs-site.xml"></config-editor>
+
+            <config-editor
+                    v-model="resource.spec.values.config.ozoneSite"
+                    label="ozone-site.xml"></config-editor>
+
+
+            <config-editor
+                    v-model="resource.spec.values.config.log4j"
+                    label="log4j.properties"></config-editor>
+
             <button type="submit" class="btn btn-primary" v-on:click="submit()">
                 Submit
             </button>
@@ -68,7 +88,10 @@
 </template>
 
 <script>
+    import ConfigEditor from './ConfigEditor'
+
     export default {
+        components: {ConfigEditor},
         data() {
             return {
                 message: '',
@@ -83,30 +106,48 @@
                 this.editMode = true;
                 this.$http.get("/apis/flokkr.github.io/v1alpha1/namespaces/" + this.$store.state.namespace + "/components/" + this.$route.params.id).then(result => {
                     this.resource = result.body;
+                    if (!this.resource.spec.values.config) {
+                        this.resource.spec.values.config = {}
+                    }
                 }, error => {
                     this.message = error.body.status + " " + error.body.message
                 });
             } else {
                 this.resource = JSON.parse(`{
-  "apiVersion": "flokkr.github.io/v1alpha1",
-  "kind": "Component",
-  "metadata": {
-    "name": "example"
-  },
-  "spec": {
-    "type": "ozone",
-    "values": {
-      "image": {
-        "repository": "flokkr/ozone",
-        "tag": "latest"
-      },
-      "services":{
-         "datanode":{
-           "replicas":3
-         }
-      }
-    }
-  }
+	"apiVersion": "flokkr.github.io/v1alpha1",
+	"kind": "Component",
+	"metadata": {
+		"name": "example"
+	},
+	"spec": {
+		"type": "ozone",
+		"values": {
+			"image": {
+				"repository": "flokkr/ozone",
+				"tag": "latest"
+			},
+			"services": {
+				"datanode": {
+					"replicas": 3
+				}
+			},
+			"config": {
+				"log4j": {
+					"log4j.rootLogger": "INFO, stdout",
+					"log4j.appender.stdout": "org.apache.log4j.ConsoleAppender",
+					"log4j.appender.stdout.layout": "org.apache.log4j.PatternLayout",
+					"log4j.appender.stdout.layout.ConversionPattern": "%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"
+				},
+				"ozoneSite": {
+					"ozone.enabled": "True",
+					"ozone.scm.datanode.id": "/data/datanode.id",
+					"ozone.metadata.dirs": "/data/metadata",
+					"rpc.metrics.quantile.enable": "true",
+					"rpc.metrics.percentiles.intervals": "60,300"
+				}
+			}
+		}
+	}
 }`);
                     this.resource.spec.type = this.$route.params.type;
                 this.resource.spec.values.image.repository = "flokkr/" + this.$route.params.type;
