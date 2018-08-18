@@ -5,10 +5,10 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        namespace: "ozoneweekly"
+        namespace: "default"
     },
     mutations: {
-        setNamespace(state, namespace) {
+        namespace(state, namespace) {
             state.namespace = namespace
         }
     }

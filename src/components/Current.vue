@@ -21,6 +21,7 @@
       </div>
     </div>
     <router-link to="/new/component/select" class="btn btn-warning">Install new component</router-link>
+    <router-link to="/namespace" class="btn btn-danger" style="margin-left: 20px;">Switch namespace</router-link>
   </div>
 </div>
 </template>

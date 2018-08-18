@@ -17,6 +17,7 @@ import PodStatus from './components/PodStatus.vue'
 import PodUIConsole from './components/PodUIConsole.vue'
 import KubernetesUI from './components/KubernetesUI.vue'
 import Prometheus from './components/Prometheus.vue'
+import SelectNamespace from './components/namespace/Select.vue'
 import store from './store.js'
 
 import BootstrapVue from 'bootstrap-vue'
@@ -33,6 +34,7 @@ import Current from './components/Current.vue'
 
 const routes = [
     {path: '/', component: Current},
+    {path: '/namespace', component: SelectNamespace},
     {path: '/topology', component: Topology},
     {path: '/logging', component: Logging},
     {path: '/history', component: History},
