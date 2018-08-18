@@ -37,7 +37,7 @@
                             name: 'Apache Hadoop HDFS',
                             id: 'hdfs',
                             version: '3.1.1',
-                            disabled: true
+                            disabled: false
                         },
                         {
                             name: 'Apache Hadoop YARN',

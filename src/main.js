@@ -7,6 +7,7 @@ import History from './components/History.vue'
 import ComponentFormCustom from './components/ComponentFormCustom.vue'
 import ComponentForm from './components/ComponentForm.vue'
 import ComponentFormFreon from './components/ComponentFormFreon.vue'
+import ComponentFormOzone from './components/ComponentFormOzone.vue'
 import ComponentDetail from './components/ComponentDetail.vue'
 import ComponentSelection from './components/ComponentSelection.vue'
 import ConfigEdit from './components/ConfigEdit.vue'
@@ -37,6 +38,7 @@ const routes = [
     {path: '/history', component: History},
     {path: '/new/customcomponent', component: ComponentFormCustom},
     {path: '/new/component/select', component: ComponentSelection},
+    {path: '/component/ozone/new', component: ComponentFormOzone},
     {path: '/component/freon/new', component: ComponentFormFreon},
     {path: '/component/:type/new', component: ComponentForm},
     {path: '/component/:type/:id/edit', component: ComponentForm},

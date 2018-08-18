@@ -3,7 +3,7 @@
         <div class="col-md-8">
 
         {{message}}
-        <h1>Installing {{$route.params.type}}</h1>
+        <h1>Installing {{$route.params.id}}</h1>
         <form>
             <div class="form-group">
                 <label for="metadata_name">Name of the installation</label>
@@ -39,7 +39,37 @@
                     side.
                 </small>
             </div>
+            <h2>Datanode</h2>
+            <div class="form-group">
+                <label for="values_services_datanode_replicas">Number of
+                    datanodes</label>
+                <input type="number"
+                       v-model="resource.spec.values.services.datanode.replicas"
+                       id="values_services_datanode_replicas"
+                       class="form-control">
+                <small class="form-text text-muted">Number of the datanode
+                    instances.
+                </small>
+            </div>
+            <h2>Configuration</h2>
 
+
+            <config-editor
+                    v-model="resource.spec.values.config.coreSite"
+                    label="core-site.xml"></config-editor>
+
+            <config-editor
+                    v-model="resource.spec.values.config.hdfsSite"
+                    label="hdfs-site.xml"></config-editor>
+
+            <config-editor
+                    v-model="resource.spec.values.config.ozoneSite"
+                    label="ozone-site.xml"></config-editor>
+
+
+            <config-editor
+                    v-model="resource.spec.values.config.log4j"
+                    label="log4j.properties"></config-editor>
 
             <button type="submit" class="btn btn-primary" v-on:click="submit()">
                 Submit
@@ -93,8 +123,28 @@
 		"type": "ozone",
 		"values": {
 			"image": {
-				"repository": "flokkr/hadoop",
+				"repository": "flokkr/ozone",
 				"tag": "latest"
+			},
+			"services": {
+				"datanode": {
+					"replicas": 3
+				}
+			},
+			"config": {
+				"log4j": {
+					"log4j.rootLogger": "INFO, stdout",
+					"log4j.appender.stdout": "org.apache.log4j.ConsoleAppender",
+					"log4j.appender.stdout.layout": "org.apache.log4j.PatternLayout",
+					"log4j.appender.stdout.layout.ConversionPattern": "%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"
+				},
+				"ozoneSite": {
+					"ozone.enabled": "True",
+					"ozone.scm.datanode.id": "/data/datanode.id",
+					"ozone.metadata.dirs": "/data/metadata",
+					"rpc.metrics.quantile.enable": "true",
+					"rpc.metrics.percentiles.intervals": "60,300"
+				}
 			}
 		}
 	}

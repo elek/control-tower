@@ -6,7 +6,8 @@
 export default {
   data() {
     return {
-      url: "/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/pod/"+namespace+"/"+this.$route.params.name+"?namespace=" + namespace,
+        url: "/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/pod/" + this.$store.state.namespace +
+        "/" + this.$route.params.name + "?namespace=" + this.$store.state.namespace,
     }
   }
 }
