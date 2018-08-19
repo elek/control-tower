@@ -149,8 +149,6 @@
 		}
 	}
 }`);
-                    this.resource.spec.type = this.$route.params.type;
-                this.resource.spec.values.image.repository = "flokkr/" + this.$route.params.type;
             }
             this.reloadTags()
         },
