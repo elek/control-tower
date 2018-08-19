@@ -1,7 +1,6 @@
 <template>
     <div class="col-md-12">
 
-        {{message}}
         <h2>Choose a software to install:</h2>
         <div class="card" style="width: 30rem; margin: 1em;"
              v-for="component in components">

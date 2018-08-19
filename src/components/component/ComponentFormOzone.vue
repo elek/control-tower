@@ -18,10 +18,10 @@
                 <div class="input-group">
                     <input type="text"
                            v-model="resource.spec.values.image.repository"
-                           v-on:blur="reloadTags()"
+                           v-on:blur="$refs.docker.reloadTags()"
                            id="values_image_repository" class="form-control"
                            placeholder="Docker image"/>
-                    <button type="button" @click="reloadTags()"
+                    <button type="button" @click="$refs.docker.reloadTags()"
                             class="btn btn-warning">Reload tags
                     </button>
                 </div>
@@ -76,22 +76,16 @@
             </button>
         </form>
     </div>
-        <div class="col-md-4">
-            <h2>flokkr/ozone versions</h2>
-            <p v-for="tag in tags">
-                <button class="btn" v-on:click="setLabel(tag.name)">
-                    {{tag.name}}
-                </button>
-            </p>
-        </div>
+        <docker-selector v-on:selected="resource.spec.values.image.tag = $event" ref="docker" v-bind:image="resource.spec.values.image.repository"></docker-selector>
     </div>
 </template>
 
 <script>
     import ConfigEditor from '../ConfigEditor'
+    import DockerSelector from './DockerSelector'
 
     export default {
-        components: {ConfigEditor},
+        components: {ConfigEditor, DockerSelector},
         data() {
             return {
                 message: '',

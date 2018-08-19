@@ -105,17 +105,6 @@
             this.reloadTags()
         },
         methods: {
-            reloadTags() {
-                if (this.loadedRepository != this.resource.spec.values.image.repository) {
-                    this.$http.get("/docker/v2/repositories/" + this.resource.spec.values.image.repository + "/tags/").then(result => {
-                        this.tags = result.body.results;
-                    }, error => {
-                        this.message = error.body.status + " " + error.body.message
-                    });
-                    this.loadedRepository = this.resource.spec.values.image.repository
-                }
-
-            },
             setLabel(tag) {
                 this.resource.spec.values.image.tag = tag;
             },

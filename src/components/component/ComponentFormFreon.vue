@@ -1,5 +1,6 @@
 <template>
-    <div class="col-md-12">
+    <div class="row">
+        <div class="col-md-8">
 
         {{message}}
         <h1>Installing {{$route.params.id}}</h1>
@@ -15,10 +16,16 @@
             </div>
             <div class="form-group">
                 <label for="values_image_repository">Docker image</label>
-                <input type="text"
-                       v-model="resource.spec.values.image.repository"
-                       id="values_image_repository" class="form-control"
-                       placeholder="Docker image">
+                <div class="input-group">
+                    <input type="text"
+                           v-model="resource.spec.values.image.repository"
+                           v-on:blur="$refs.docker.reloadTags()"
+                           id="values_image_repository" class="form-control"
+                           placeholder="Docker image"/>
+                    <button type="button" @click="$refs.docker.reloadTags()"
+                            class="btn btn-warning">Reload tags
+                    </button>
+                </div>
                 <small class="form-text text-muted">Name of the
                     docker images to use.
                 </small>
@@ -45,12 +52,19 @@
                 Submit
             </button>
         </form>
-
     </div>
+        <docker-selector v-on:selected="resource.spec.values.image.tag = $event"
+                         ref="docker"
+                         v-bind:image="resource.spec.values.image.repository"></docker-selector>
+    </div>
+
 </template>
 
 <script>
+    import DockerSelector from './DockerSelector'
+
     export default {
+        components: {DockerSelector},
         data() {
             return {
                 message: '',

@@ -8,7 +8,10 @@
 </template>
 
 <script>
+    import DockerSelector from './DockerSelector'
+
     export default {
+        components: {DockerSelector},
         data() {
             return {
                 message: '',
