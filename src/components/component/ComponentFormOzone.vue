@@ -88,7 +88,7 @@
 </template>
 
 <script>
-    import ConfigEditor from './ConfigEditor'
+    import ConfigEditor from '../ConfigEditor'
 
     export default {
         components: {ConfigEditor},
