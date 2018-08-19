@@ -15,7 +15,7 @@
              <router-link to="/topology" class="nav-link">Topology</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/monitoring" class="nav-link">Dashboards</router-link>
+            <router-link to="/monitoring/" class="nav-link">Dashboards</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/logging" class="nav-link">Logging</router-link>

@@ -12,6 +12,7 @@
                 </ol>
             </nav>
 
+            <grafana-links v-bind:name="component.metadata.name"></grafana-links>
 
             <h3>Services</h3>
 
@@ -119,8 +120,10 @@
 <script>
 
     import {mapState} from 'vuex'
+    import GrafanaLinks from "./GrafanaLinks.vue";
 
     export default {
+        components: {GrafanaLinks},
         data() {
             return {
                 component: null,
