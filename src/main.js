@@ -43,6 +43,7 @@ const routes = [
     {path: '/component/ozone/new', component: ComponentFormOzone},
     {path: '/component/freon/new', component: ComponentFormFreon},
     {path: '/component/:type/new', component: ComponentForm},
+    {path: '/component/ozone/:id/edit', component: ComponentFormOzone},
     {path: '/component/:type/:id/edit', component: ComponentForm},
     {path: '/component/:name', component: ComponentDetail},
     {path: '/config/:name', component: ConfigEdit},

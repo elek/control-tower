@@ -48,6 +48,18 @@
                     configmap of the ozonecluster (ususally clustername-config).
                 </small>
             </div>
+            <h2>Freon instance</h2>
+            <div class="form-group">
+                <label for="values_services_datanode_replicas">Number of
+                    instances</label>
+                <input type="number"
+                       v-model="resource.spec.values.services.freon.replicas"
+                       id="values_services_datanode_replicas"
+                       class="form-control">
+                <small class="form-text text-muted">Number of the freon
+                    instances.
+                </small>
+            </div>
             <button type="submit" class="btn btn-primary" v-on:click="submit()">
                 Submit
             </button>
@@ -80,6 +92,11 @@
       "image": {
         "repository": "flokkr/ozone",
         "tag": "latest"
+      },
+      "services":{
+      "freon":{
+      "replicas":1
+      }
       }
     }
   }
