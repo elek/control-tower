@@ -9,22 +9,26 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <router-link to="/" class="nav-link">{{namespace}}</router-link>
+            <router-link :to="'/' + namespace + '/status'" class="nav-link">
+              {{namespace}}
+            </router-link>
           </li>
           <li class="nav-item">
-             <router-link to="/topology" class="nav-link">Topology</router-link>
+            <router-link :to="'/' + namespace + '/topology'" class="nav-link">
+              Topology
+            </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/monitoring/" class="nav-link">Dashboards</router-link>
+            <router-link :to="'/' + namespace + '/monitoring/'" class="nav-link">Dashboards</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/logging" class="nav-link">Logging</router-link>
+            <router-link :to="'/' + namespace + '/logging'" class="nav-link">Logging</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/history" class="nav-link">History</router-link>
+            <router-link :to="'/' + namespace + '/history'" class="nav-link">History</router-link>
           </li>
           <li class="nav-item">
-             <router-link to="/ui" class="nav-link">Kubernetes UI</router-link>
+             <router-link :to="'/' + namespace + '/ui'" class="nav-link">Kubernetes UI</router-link>
           </li>
         </ul>
       </div>

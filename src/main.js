@@ -33,32 +33,41 @@ Vue.use(VueResource);
 import Current from './components/Current.vue'
 
 const routes = [
-    {path: '/', component: Current},
-    {path: '/namespace', component: SelectNamespace},
-    {path: '/topology', component: Topology},
-    {path: '/logging', component: Logging},
-    {path: '/history', component: History},
-    {path: '/new/customcomponent', component: ComponentFormCustom},
-    {path: '/new/component/select', component: ComponentSelection},
-    {path: '/component/ozone/new', component: ComponentFormOzone},
-    {path: '/component/freon/new', component: ComponentFormFreon},
-    {path: '/component/:type/new', component: ComponentForm},
-    {path: '/component/ozone/:id/edit', component: ComponentFormOzone},
-    {path: '/component/:type/:id/edit', component: ComponentForm},
-    {path: '/component/:name', component: ComponentDetail},
-    {path: '/config/:name', component: ConfigEdit},
-    {path: '/monitoring', component: Monitoring},
-    {path: '/pod/:name/logging', component: PodLogging},
-    {path: '/pod/:name/status', component: PodStatus},
-    {path: '/pod/:name/console', component: PodUIConsole},
-    {path: '/ui', component: KubernetesUI},
-    {path: '/prometheus', component: Prometheus}
+    {path: '/:namespace/status', component: Current},
+    {path: '/', component: SelectNamespace},
+    {path: '/:namespace/topology', component: Topology},
+    {path: '/:namespace/logging', component: Logging},
+    {path: '/:namespace/history', component: History},
+    {path: '/:namespace/new/customcomponent', component: ComponentFormCustom},
+    {path: '/:namespace/new/component/select', component: ComponentSelection},
+    {path: '/:namespace/component/ozone/new', component: ComponentFormOzone},
+    {path: '/:namespace/component/freon/new', component: ComponentFormFreon},
+    {path: '/:namespace/component/:type/new', component: ComponentForm},
+    {
+        path: '/:namespace/component/ozone/:id/edit',
+        component: ComponentFormOzone
+    },
+    {path: '/:namespace/component/:type/:id/edit', component: ComponentForm},
+    {path: '/:namespace/component/:name', component: ComponentDetail},
+    {path: '/:namespace/config/:name', component: ConfigEdit},
+    {path: '/:namespace/monitoring', component: Monitoring},
+    {path: '/:namespace/pod/:name/logging', component: PodLogging},
+    {path: '/:namespace/pod/:name/status', component: PodStatus},
+    {path: '/:namespace/pod/:name/console', component: PodUIConsole},
+    {path: '/:namespace/ui', component: KubernetesUI},
+    {path: '/:namespace/prometheus', component: Prometheus}
 ];
 
 const router = new VueRouter({
     routes // short for `routes: routes`
 });
 
+router.beforeEach((to, from, next) => {
+    if (to.params.namespace) {
+        store.commit('namespace', to.params.namespace);
+    }
+    next()
+});
 
 new Vue({
     render: h => h(App),

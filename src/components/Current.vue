@@ -7,7 +7,6 @@
   <div v-if="error" class="error">
     {{ error }}
   </div>
-
   <div v-if="post" class="content">
     <h2>Installed components</h2>
     <div class="card" style="width: 18rem; margin: 1em;" v-for="item in post.body.items">
@@ -15,13 +14,20 @@
         <h5 class="card-title">{{item.spec.type}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{item.metadata.name}}</h6>
           <p class="card-text">Namespace: {{item.metadata.namespace}}</p>
-          <router-link :to="{path:'/component/' + item.metadata.name }" class="card-link">Details</router-link>
-          <router-link :to="{path:'/component/' + item.spec.type + '/' + item.metadata.name +'/edit'}" class="card-link">Edit</router-link>
+        <router-link
+                :to="{path:'/' + namespace + '/component/' + item.metadata.name }"
+                class="card-link">Details
+        </router-link>
+          <router-link :to="{path:'/' + namespace + '/component/' + item.spec.type + '/' + item.metadata.name +'/edit'}" class="card-link">Edit</router-link>
           <a href="#" class="card-link" @click="remove(item)">Delete</a>
       </div>
     </div>
-    <router-link to="/new/component/select" class="btn btn-warning">Install new component</router-link>
-    <router-link to="/namespace" class="btn btn-danger" style="margin-left: 20px;">Switch namespace</router-link>
+    <router-link :to="'/' + namespace + '/new/component/select'"
+                 class="btn btn-warning">Install new component
+    </router-link>
+    <router-link to="/" class="btn btn-danger" style="margin-left: 20px;">Switch
+      namespace
+    </router-link>
   </div>
 </div>
 </template>
@@ -29,6 +35,11 @@
 
 <script>
 export default {
+    computed: {
+        namespace: function () {
+            return this.$route.params.namespace;
+        }
+    },
   data () {
      return {
        loading: false,
@@ -41,6 +52,11 @@ export default {
      // already being observed
      this.fetchData()
    },
+    computed: {
+        namespace: function () {
+            return this.$route.params.namespace;
+        }
+    },
    watch: {
      // call again the method if the route changes
      '$route': 'fetchData'

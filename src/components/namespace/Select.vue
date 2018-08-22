@@ -29,7 +29,7 @@
         methods: {
             select(namespace) {
                 this.$store.commit("namespace", namespace.metadata.name)
-                this.$router.push("/")
+                this.$router.push("/" + namespace.metadata.name + "/status")
             },
             readNamespaces() {
                 this.$http.get("/api/v1/namespaces").then(result => {

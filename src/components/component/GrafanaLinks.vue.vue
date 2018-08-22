@@ -12,7 +12,7 @@
             <tr v-for="dashboard in dashboards">
                 <td>
                     <router-link
-                            :to="'/monitoring?page=/d/'+dashboard.uid+'/'+dashboard.title">
+                            :to="'/' + namespace + '/monitoring?page=/d/'+dashboard.uid+'/'+dashboard.title">
                         {{dashboard.title}}
                     </router-link>
                 </td>
@@ -29,7 +29,7 @@
                 "dashboards": {}
             }
         },
-        props: ["name"],
+        props: ["name", "namespace"],
         created() {
             this.fetchData()
         },

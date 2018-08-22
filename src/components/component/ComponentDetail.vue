@@ -12,7 +12,7 @@
                 </ol>
             </nav>
 
-            <grafana-links v-bind:name="component.metadata.name"></grafana-links>
+            <grafana-links v-bind:name="component.metadata.name" v-bind:namespace="namespace"></grafana-links>
 
             <h3>Services</h3>
 
@@ -65,9 +65,6 @@
                     <td>{{config.metadata.name}}</td>
 
                     <td>
-                        <router-link :to="'/config/' + config.metadata.name"
-                                     class="card-link">Edit
-                        </router-link>
                     </td>
                 </tr>
                 </tbody>
@@ -92,19 +89,19 @@
                     <td>{{pod.status.phase}}</td>
                     <td>
                         <router-link
-                                :to="'/pod/' + pod.metadata.name + '/logging'"
+                                :to="'/' + namespace + '/pod/' + pod.metadata.name + '/logging'"
                                 class="card-link">Logging
                         </router-link>
                     </td>
                     <td>
                         <router-link
-                                :to="'/pod/' + pod.metadata.name + '/status'"
+                                :to="'/' + namespace + '/pod/' + pod.metadata.name + '/status'"
                                 class="card-link">Status
                         </router-link>
                     </td>
                     <td>
                         <router-link
-                                :to="'/pod/' + pod.metadata.name + '/console'"
+                                :to="'/' + namespace + '/pod/' + pod.metadata.name + '/console'"
                                 class="card-link">Console
                         </router-link>
                     </td>
@@ -123,6 +120,11 @@
     import GrafanaLinks from "./GrafanaLinks.vue";
 
     export default {
+        computed: {
+            namespace: function () {
+                return this.$route.params.namespace;
+            }
+        },
         components: {GrafanaLinks},
         data() {
             return {
@@ -138,7 +140,6 @@
             // already being observed
             this.fetchData()
         },
-        computed: mapState(['namespace']),
         watch: {
             // call again the method if the route changes
             '$route': 'fetchData'
