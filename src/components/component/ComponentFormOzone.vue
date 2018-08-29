@@ -66,10 +66,15 @@
                     v-model="resource.spec.values.config.ozoneSite"
                     label="ozone-site.xml"></config-editor>
 
-
             <config-editor
                     v-model="resource.spec.values.config.log4j"
                     label="log4j.properties"></config-editor>
+
+            <h2>Custom env for all containers</h2>
+            <config-editor
+                    v-model="resource.spec.values.env"
+                    label="Environment variables (KEY: VALUE)"></config-editor>
+
 
             <button type="submit" class="btn btn-primary" v-on:click="submit()">
                 Submit
