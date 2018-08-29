@@ -44,6 +44,11 @@
                             disabled: false
                         },
                         {
+                            name: 'Apache Hadoop Ozone / Freon',
+                            id: 'freon',
+                            version: '0.2.1-SNAPSHOT',
+                        },
+                        {
                             name: 'Apache Hadoop YARN',
                             id: 'yarn',
                             version: '3.1.1',
@@ -57,10 +62,18 @@
                             disabled: true
                         },
                         {
-                            name: 'Apache Hadoop Ozone / Freon',
-                            id: 'freon',
-                            version: '0.2.1-SNAPSHOT',
-                        }
+                            name: 'Apache Kafka',
+                            id: 'kafa',
+                            version: '2.0.0',
+                            disabled: true
+                        },
+                        {
+                            name: 'Apache Zookeeper',
+                            id: 'zookeeper',
+                            version: '3.4.13',
+                            disabled: true
+                        },
+
                     ]
 
             }
