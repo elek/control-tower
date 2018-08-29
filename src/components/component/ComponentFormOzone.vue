@@ -116,7 +116,10 @@
 	"apiVersion": "flokkr.github.io/v1alpha1",
 	"kind": "Component",
 	"metadata": {
-		"name": "example"
+		"name": "example",
+		"labels": {
+		   "flokkr.github.io/component" : "ozone"
+		}
 	},
 	"spec": {
 		"type": "ozone",
