@@ -36,7 +36,7 @@
         methods: {
             fetchData() {
                 var namespace = this.$store.state.namespace;
-                this.$http.get("http://localhost:2016/api/v1/namespaces/" + namespace + "/services/grafana-grafana:web/proxy/api/search?query=" + this.name).then(result => {
+                this.$http.get("/api/v1/namespaces/" + namespace + "/services/" + namespace + "-grafana-grafana:web/proxy/api/search?query=" + this.name).then(result => {
                     this.dashboards = result.body
                 }, error => {
                     console.log(error)
