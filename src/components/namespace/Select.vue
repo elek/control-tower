@@ -1,18 +1,25 @@
 <template>
     <div class="row">
-        <h2>List of namespaces</h2>
-        <table class="table table-striped">
-
-            <tr v-for="namespace in namespaces.items"
-                v-bind:key="namespace.metadata.ui">
-                <td>{{namespace.metadata.name}} ({{namespace.status.phase}})
+        <div class="content col-md-10">
+            <h2>List of namespaces</h2>
+            <div class="card" style="width: 18rem; margin: 1em;"
+                 v-for="namespace in namespaces.items"
+                 v-bind:key="namespace.metadata.ui">
+                <div class="card-body">
+                    <h5 class="card-title">{{namespace.metadata.name}}</h5>
+                    <div class="card-text">
+                        <p>
+                            {{namespace.metadata.annotations["flokkr.github.io/description"]}}
+                        </p>
                     <button v-on:click="select(namespace)"
                             class="btn btn-warning">Select
                     </button>
-                </td>
-            </tr>
-        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </template>
 
 <script>
@@ -32,7 +39,7 @@
                 this.$router.push("/" + namespace.metadata.name + "/status")
             },
             readNamespaces() {
-                this.$http.get("/api/v1/namespaces").then(result => {
+                this.$http.get("/api/v1/namespaces?labelSelector=flokkr.github.io/managed=true").then(result => {
                     this.namespaces = result.body;
                 }, error => {
                     this.message = error.body.status + " " + error.body.message
