@@ -35,7 +35,7 @@
         },
         methods: {
             select(namespace) {
-                this.$store.commit("namespace", namespace.metadata.name)
+                this.$store.commit("namespace", namespace.metadata.name);
                 this.$router.push("/" + namespace.metadata.name + "/status")
             },
             readNamespaces() {
@@ -50,6 +50,4 @@
 
         }
     }
-
-
 </script>

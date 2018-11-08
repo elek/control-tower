@@ -5,7 +5,12 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        namespace: "default"
+        namespace: "default",
+        config: {
+            "logging": false,
+            "history": false,
+            "topology": false
+        }
     },
     mutations: {
         namespace(state, namespace) {

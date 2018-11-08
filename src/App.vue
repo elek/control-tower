@@ -13,7 +13,7 @@
               {{namespace}}
             </router-link>
           </li>
-          <li class="nav-item">
+          <li v-if="config.topology" class="nav-item">
             <router-link :to="'/' + namespace + '/topology'" class="nav-link">
               Topology
             </router-link>
@@ -21,10 +21,10 @@
           <li class="nav-item">
             <router-link :to="'/' + namespace + '/monitoring/'" class="nav-link">Dashboards</router-link>
           </li>
-          <li class="nav-item">
+          <li v-if="config.logging" class="nav-item">
             <router-link :to="'/' + namespace + '/logging'" class="nav-link">Logging</router-link>
           </li>
-          <li class="nav-item">
+          <li v-if="config.history" class="nav-item">
             <router-link :to="'/' + namespace + '/history'" class="nav-link">History</router-link>
           </li>
           <li class="nav-item">
@@ -51,6 +51,9 @@ export default {
     computed: {
         namespace() {
             return this.$store.state.namespace
+        },
+        config() {
+            return this.$store.state.config
         }
     }
 }
