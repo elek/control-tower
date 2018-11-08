@@ -28,9 +28,12 @@
                 <tr v-for="service in services">
                     <td>{{service.metadata.name}}</td>
                     <td>{{service.spec.type}}</td>
-                    <td><p v-for="port in service.spec.ports"
+                    <td>
+                        <p v-for="port in service.spec.ports"
                            class="card-text">
-                            <a v-bind:href="'/api/v1/namespaces/'+namespace+'/services/'+service.metadata.name+':'+port.name+'/proxy/'">{{port.name}}</a>
+                            <a v-bind:href="'/api/v1/namespaces/'+namespace+'/services/'+service.metadata.name+':'+port.name+'/proxy/'">{{port.name}}
+                            <span v-if="port.nodePort" >:{{port.nodePort}}</span>
+                            </a>
                     </p></td>
                 </tr>
                 </tbody>
