@@ -1,6 +1,6 @@
 <template>
     <div class="post">
-
+        <error></error>
         <div v-if="component" class="content">
 
             <nav aria-label="breadcrumb">
@@ -119,8 +119,8 @@
 
 <script>
 
-    import {mapState} from 'vuex'
     import GrafanaLinks from "./GrafanaLinks.vue";
+    import Error from '../Error'
 
     export default {
         computed: {
@@ -128,7 +128,7 @@
                 return this.$route.params.namespace;
             }
         },
-        components: {GrafanaLinks},
+        components: {GrafanaLinks, Error},
         data() {
             return {
                 component: null,
@@ -154,27 +154,27 @@
                 this.$http.get("/apis/flokkr.github.io/v1alpha1/namespaces/" + namespace + "/components/" + this.$route.params.name).then(result => {
                     this.component = result.body
                 }, error => {
-                    console.log(error)
-                })
+                    this.$store.commit("error", error);
+                });
                 this.$http.get("/apis/apps/v1/namespaces/" + namespace + "/statefulsets?labelSelector=release=" + this.$route.params.name).then(result => {
                     this.statefulsets = result.body.items
                 }, error => {
-                    console.log(error)
-                })
+                    this.$store.commit("error", error);
+                });
                 this.$http.get("/api/v1/namespaces/" + namespace + "/services?labelSelector=release=" + this.$route.params.name).then(result => {
                     this.services = result.body.items
                 }, error => {
-                    console.log(error)
-                })
+                    this.$store.commit("error", error);
+                });
                 this.$http.get("/api/v1/namespaces/" + namespace + "/configmaps?labelSelector=release=" + this.$route.params.name).then(result => {
                     this.configs = result.body.items
                 }, error => {
-                    console.log(error)
-                })
+                    this.$store.commit("error", error);
+                });
                 this.$http.get("/api/v1/namespaces/" + namespace + "/pods?labelSelector=release=" + this.$route.params.name).then(result => {
                     this.pods = result.body.items
                 }, error => {
-                    console.log(error)
+                    this.$store.commit("error", error);
                 })
             }
         }

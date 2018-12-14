@@ -1,8 +1,7 @@
 <template>
     <div class="row">
         <div class="col-md-8">
-
-        {{message}}
+            <error></error>
         <h1>Installing {{$route.params.id}}</h1>
         <form>
             <div class="form-group">
@@ -88,9 +87,9 @@
 <script>
     import ConfigEditor from '../ConfigEditor'
     import DockerSelector from './DockerSelector'
-
+    import Error from '../Error'
     export default {
-        components: {ConfigEditor, DockerSelector},
+        components: {ConfigEditor, DockerSelector, Error},
         data() {
             return {
                 message: '',
@@ -173,17 +172,28 @@
                 if (this.editMode) {
                     // eslint-disable-next-line
                     this.$http.put("/apis/flokkr.github.io/v1alpha1/namespaces/" + this.$store.state.namespace + "/components/" + this.$route.params.id, this.resource).then(post => {
-                        this.message = "Message saved successfully."
+                        this.$store.commit("message", "Resource is saved successfully.");
                     }, error => {
-                        this.message = error.body.status + " " + error.body.message
+                        this.$store.commit("error", error.body.status + " " + error.body.message);
+                        window.scrollTo(0, 0);
                     })
                 } else {
                     // eslint-disable-next-line
                     this.$http.post("/apis/flokkr.github.io/v1alpha1/namespaces/" + this.$store.state.namespace + "/components", this.resource).then(post => {
-                        this.message = "Message saved successfully."
+                        this.$store.commit("message", "Resource is saved successfully.");
+                        this.$router.push({
+                            name: 'Current',
+                            params: {
+                                namespace: this.$store.state.namespace
+                            }
+                        });
                     }, error => {
-                        this.message = error.body.status + " " + error.body.message
-                    })
+                        this.$store.commit("error", error.body.status + " " + error.body.message);
+                        window.scrollTo(0, 0);
+                    });
+
+
+
                 }
             },
             fetchData() {

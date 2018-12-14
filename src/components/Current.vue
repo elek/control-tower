@@ -1,5 +1,6 @@
 <template>
     <div class="post">
+        <error></error>
         <div class="loading" v-if="loading">
             Loading...
         </div>
@@ -43,9 +44,10 @@
 
 <script>
     import ListJobs from './ListJobs'
+    import Error from './Error'
 
     export default {
-        components: {ListJobs},
+        components: {ListJobs, Error},
         computed: {
             namespace: function () {
                 return this.$route.params.namespace;

@@ -33,7 +33,7 @@ Vue.use(VueResource);
 import Current from './components/Current.vue'
 
 const routes = [
-    {path: '/:namespace/status', component: Current},
+    {path: '/:namespace/status', component: Current, name: "Current"},
     {path: '/', component: SelectNamespace},
     {path: '/:namespace/topology', component: Topology},
     {path: '/:namespace/logging', component: Logging},
@@ -48,7 +48,12 @@ const routes = [
         component: ComponentFormOzone
     },
     {path: '/:namespace/component/:type/:id/edit', component: ComponentForm},
-    {path: '/:namespace/component/:name', component: ComponentDetail},
+    {
+        name: "ComponentDetail",
+        path: '/:namespace/component/:name',
+        component: ComponentDetail,
+
+    },
     {path: '/:namespace/config/:name', component: ConfigEdit},
     {path: '/:namespace/monitoring', component: Monitoring},
     {path: '/:namespace/pod/:name/logging', component: PodLogging},

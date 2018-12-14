@@ -42,12 +42,9 @@
                 this.$http.get("/api/v1/namespaces?labelSelector=flokkr.github.io/managed=true").then(result => {
                     this.namespaces = result.body;
                 }, error => {
-                    this.message = error.body.status + " " + error.body.message
+                    this.$store.commit("error", error.body.status + " " + error.body.message)
                 });
-
             }
-
-
         }
     }
 </script>
